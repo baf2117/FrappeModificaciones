@@ -184,7 +184,7 @@
 					</Tooltip>
 					<Tooltip
 						v-if="showAppointmentIcon"
-						:text="__('Book a free onboarding session with the Frappe team')"
+						:text="__('Book a free onboarding session with the support team')"
 					>
 						<Phone
 							class="size-4 stroke-1.5 text-ink-gray-7 cursor-pointer"
@@ -200,12 +200,6 @@
 									minimize = !showHelpModal
 								}
 							"
-						/>
-					</Tooltip>
-					<Tooltip :text="__('Powered by Frappe Learning')">
-						<Zap
-							class="size-4 stroke-1.5 text-ink-gray-7 cursor-pointer"
-							@click="redirectToWebsite()"
 						/>
 					</Tooltip>
 				</div>
@@ -229,7 +223,7 @@
 			v-model="showHelpModal"
 			v-model:articles="articles"
 			appName="learning"
-			title="Frappe Learning"
+			title="Learning"
 			:logo="LMSLogo"
 			:afterSkip="(step) => capture('onboarding_step_skipped_' + step)"
 			:afterSkipAll="() => capture('onboarding_steps_skipped')"
@@ -285,7 +279,6 @@ import {
 	UserPlus,
 	Users,
 	BookText,
-	Zap,
 } from 'lucide-vue-next'
 import {
 	TrialBanner,
@@ -670,10 +663,6 @@ watch(settingsStore.settings, () => {
 const updateSidebarLinks = () => {
 	sidebarLinks.value = getSidebarLinks()
 	updateSidebarLinksVisibility()
-}
-
-const redirectToWebsite = () => {
-	window.open('https://frappe.io/learning', '_blank')
 }
 
 const isStudent = computed(() => {
