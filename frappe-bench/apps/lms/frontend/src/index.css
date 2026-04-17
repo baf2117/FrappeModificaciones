@@ -1,0 +1,32 @@
+@import 'frappe-ui/style.css';
+@import './styles/codemirror.css';
+
+:root {
+  --app-font-family: 'InterVar', 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --surface-menu-bar: #001e62;
+}
+
+html,
+body,
+#app,
+button,
+input,
+select,
+textarea {
+  font-family: var(--app-font-family);
+}
+
+.bg-surface-menu-bar {
+  --ink-gray-9: #ffffff;
+  --ink-gray-8: #ffffff;
+  --ink-gray-7: rgba(255, 255, 255, 0.85);
+  --ink-gray-5: rgba(255, 255, 255, 0.6);
+}
+
+.bg-surface-menu-bar .bg-surface-selected,
+.bg-surface-menu-bar .bg-surface-white {
+  --ink-gray-9: #0f172a;
+  --ink-gray-8: #0f172a;
+  --ink-gray-7: #374151;
+  --ink-gray-5: #6b7280;
+}
