@@ -1,0 +1,9 @@
+2026-04-13 22:50:59,113 ERROR frappe New Exception collected in error log
+Site: learning.local
+Form Dict: {'cmd': 'frappe.core.doctype.user.user.reset_password', 'user': 'baf201403564@gmail.com'}
+2026-04-13 22:54:13,195 ERROR frappe New Exception collected in error log
+Site: learning.local
+Form Dict: {'cmd': 'frappe.core.doctype.user.user.reset_password', 'user': 'baf201403564@gmail.com'}
+2026-04-13 22:54:43,456 ERROR frappe New Exception collected in error log
+Site: learning.local
+Form Dict: {'cmd': 'frappe.www.login.send_login_link', 'email': 'baf201403564@gmail.com'}

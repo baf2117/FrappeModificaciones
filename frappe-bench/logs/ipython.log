@@ -1,0 +1,108 @@
+2026-04-13 22:55:55,719 INFO ipython === bench console session ===
+2026-04-13 22:55:55,719 INFO ipython import frappe
+2026-04-13 22:55:55,719 INFO ipython print('signup_disabled=', frappe.db.get_single_value('Website Settings','disable_signup'))
+2026-04-13 22:55:55,719 INFO ipython print('default_role=', frappe.db.get_single_value('Portal Settings','default_role'))
+2026-04-13 22:55:55,719 INFO ipython print('email_accounts=', frappe.db.count('Email Account'))
+2026-04-13 22:55:55,719 INFO ipython print('default_outgoing=', frappe.db.get_all('Email Account', filters={'enable_outgoing':1,'default_outgoing':1}, pluck='name'))
+2026-04-13 22:55:55,719 INFO ipython print('scheduler_enabled=', frappe.db.get_single_value('System Settings','enable_scheduler'))
+2026-04-13 22:55:55,719 INFO ipython === session end ===
+2026-04-13 22:56:29,438 INFO ipython === bench console session ===
+2026-04-13 22:56:29,439 INFO ipython import frappe
+2026-04-13 22:56:29,439 INFO ipython frappe.db.set_single_value('Website Settings','disable_signup',0)
+2026-04-13 22:56:29,440 INFO ipython frappe.db.set_single_value('Portal Settings','default_role','LMS Student')
+2026-04-13 22:56:29,440 INFO ipython frappe.db.set_single_value('System Settings','enable_scheduler',1)
+2026-04-13 22:56:29,441 INFO ipython frappe.db.commit()
+2026-04-13 22:56:29,441 INFO ipython print('updated: disable_signup=0, default_role=LMS Student, enable_scheduler=1')
+2026-04-13 22:56:29,441 INFO ipython === session end ===
+2026-04-13 22:57:02,257 INFO ipython === bench console session ===
+2026-04-13 22:57:02,257 INFO ipython import frappe
+2026-04-13 22:57:02,257 INFO ipython email='student.demo@learning.local'
+2026-04-13 22:57:02,257 INFO ipython if not frappe.db.exists('User', email):
+    u=frappe.get_doc({
+        'doctype':'User',
+        'email':email,
+        'first_name':'Student',
+        'last_name':'Demo',
+        'enabled':1,
+        'user_type':'Website User',
+        'send_welcome_email':0
+    }).insert(ignore_permissions=True)
+    u.add_roles('LMS Student')
+    frappe.db.commit()
+    print('created', email)
+else:
+    print('exists', email)
+2026-04-13 22:57:02,257 INFO ipython u=frappe.get_doc('User', email)
+2026-04-13 22:57:02,258 INFO ipython u.new_password='Demo12345!'
+2026-04-13 22:57:02,258 INFO ipython u.save(ignore_permissions=True)
+2026-04-13 22:57:02,258 INFO ipython frappe.db.commit()
+2026-04-13 22:57:02,258 INFO ipython print('password set for', email)
+2026-04-13 22:57:02,258 INFO ipython print('roles=', [r.role for r in u.roles])
+2026-04-13 22:57:02,258 INFO ipython === session end ===
+2026-04-13 23:10:07,888 INFO ipython === bench console session ===
+2026-04-13 23:10:07,889 INFO ipython import frappe
+2026-04-13 23:10:07,889 INFO ipython print('exists=', bool(frappe.db.exists('DocType','Email Account')))
+2026-04-13 23:10:07,889 INFO ipython print('module=', frappe.db.get_value('DocType','Email Account','module'))
+2026-04-13 23:10:07,889 INFO ipython print('is_submittable=', frappe.db.get_value('DocType','Email Account','is_submittable'))
+2026-04-13 23:10:07,889 INFO ipython print('is_single=', frappe.db.get_value('DocType','Email Account','issingle'))
+2026-04-13 23:10:07,889 INFO ipython === session end ===
+2026-04-17 10:30:39,338 INFO ipython === bench console session ===
+2026-04-17 10:30:39,339 INFO ipython import frappe
+2026-04-17 10:30:39,339 INFO ipython print('system_language=', frappe.db.get_single_value('System Settings','language'))
+2026-04-17 10:30:39,339 INFO ipython print('website_language=', frappe.db.get_single_value('Website Settings','language'))
+2026-04-17 10:30:39,339 INFO ipython print('admin_exists=', bool(frappe.db.exists('User','Administrator')))
+2026-04-17 10:30:39,339 INFO ipython print('admin_language=', frappe.db.get_value('User','Administrator','language'))
+2026-04-17 10:30:39,339 INFO ipython print('admin_roles=', frappe.get_roles('Administrator'))
+2026-04-17 10:30:39,339 INFO ipython === session end ===
+2026-04-17 10:30:50,832 INFO ipython === bench console session ===
+2026-04-17 10:30:50,832 INFO ipython import frappe
+2026-04-17 10:30:50,832 INFO ipython frappe.db.set_value('User','Administrator','language','es')
+2026-04-17 10:30:50,832 INFO ipython frappe.db.commit()
+2026-04-17 10:30:50,832 INFO ipython print('admin_language_now=', frappe.db.get_value('User','Administrator','language'))
+2026-04-17 10:30:50,833 INFO ipython === session end ===
+2026-04-17 10:37:34,311 INFO ipython === bench console session ===
+2026-04-17 10:37:34,312 INFO ipython import frappe
+2026-04-17 10:37:34,312 INFO ipython meta = frappe.get_meta('LMS Settings')
+2026-04-17 10:37:34,312 INFO ipython fields = [f.fieldname for f in meta.fields if f.fieldname in ('app_logo','favicon','banner_image','brand_html','app_name')]
+2026-04-17 10:37:34,312 INFO ipython print('lms_settings_fields=', fields)
+2026-04-17 10:37:34,312 INFO ipython for fn in fields:
+    print(fn, '=', frappe.db.get_single_value('LMS Settings', fn))
+2026-04-17 10:37:34,312 INFO ipython wmeta = frappe.get_meta('Website Settings')
+2026-04-17 10:37:34,313 INFO ipython wfields = [f.fieldname for f in wmeta.fields if f.fieldname in ('banner_image','favicon','brand_html')]
+2026-04-17 10:37:34,313 INFO ipython print('website_settings_fields=', wfields)
+2026-04-17 10:37:34,313 INFO ipython === session end ===
+2026-04-17 10:45:18,268 INFO ipython === bench console session ===
+2026-04-17 10:45:18,268 INFO ipython import frappe
+2026-04-17 10:45:18,269 INFO ipython print('Website Settings banner_image =', frappe.db.get_single_value('Website Settings','banner_image'))
+2026-04-17 10:45:18,269 INFO ipython print('Website Settings app_logo =', frappe.db.get_single_value('Website Settings','app_logo'))
+2026-04-17 10:45:18,269 INFO ipython print('Website Settings favicon =', frappe.db.get_single_value('Website Settings','favicon'))
+2026-04-17 10:45:18,269 INFO ipython === session end ===
+2026-04-17 10:45:36,613 INFO ipython === bench console session ===
+2026-04-17 10:45:36,613 INFO ipython import frappe
+2026-04-17 10:45:36,613 INFO ipython paths = ['/private/files/Recurso 2.png','/private/files/favicon.ico']
+2026-04-17 10:45:36,613 INFO ipython for p in paths:
+    name = frappe.db.get_value('File', {'file_url': p}, 'name')
+    print('\nfile_url=', p, 'name=', name)
+    if not name:
+        continue
+    f = frappe.get_doc('File', name)
+    print('before is_private=', f.is_private, 'new_file_url=', f.file_url)
+    f.is_private = 0
+    f.save(ignore_permissions=True)
+    f.reload()
+    print('after  is_private=', f.is_private, 'new_file_url=', f.file_url)
+frappe.db.commit()
+2026-04-17 10:45:36,614 INFO ipython print('\nWebsite Settings banner_image=', frappe.db.get_single_value('Website Settings','banner_image'))
+2026-04-17 10:45:36,614 INFO ipython print('Website Settings favicon=', frappe.db.get_single_value('Website Settings','favicon'))
+2026-04-17 10:45:36,614 INFO ipython === session end ===
+2026-04-17 10:51:55,746 INFO ipython === bench console session ===
+2026-04-17 10:51:55,746 INFO ipython import frappe
+2026-04-17 10:51:55,746 INFO ipython # Check system default language
+2026-04-17 10:51:55,747 INFO ipython print("System lang:", frappe.db.get_single_value("System Settings", "language"))
+2026-04-17 10:51:55,747 INFO ipython # Check if LMS Student users have language set
+2026-04-17 10:51:55,747 INFO ipython users = frappe.db.get_all("User", {"name": ["not in", ["Administrator", "Guest"]]}, ["name", "language"], limit=5)
+2026-04-17 10:51:55,747 INFO ipython === session end ===
+2026-04-17 10:52:25,801 INFO ipython === bench console session ===
+2026-04-17 10:52:25,801 INFO ipython import frappe
+2026-04-17 10:52:25,801 INFO ipython users = frappe.db.get_all("User", {"name": ["not in", ["Administrator", "Guest"]]}, ["name", "language"], limit=10)
+2026-04-17 10:52:25,801 INFO ipython === session end ===
